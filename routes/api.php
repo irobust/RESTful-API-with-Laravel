@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('/polls', 'PollController');
+Route::get('polls/{id}/questions', 'PollController@listOfQuestions');

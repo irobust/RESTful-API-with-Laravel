@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Poll;
 use Validator;
+use App\Http\Resources\Poll as PollResource;
+use App\Http\Resources\QuestionCollection;
 
 class PollController extends Controller
 {
@@ -55,7 +57,8 @@ class PollController extends Controller
         if(is_null($poll)){
             return response()->json(null, 404);
         }
-        return response()->json($poll, 200);
+
+        return new PollResource($poll);
     }
 
     /**
@@ -81,5 +84,10 @@ class PollController extends Controller
     {
         $poll->delete();
         return response()->json(null, 204);
+    }
+
+    public function listOfQuestions($id){
+        $questions = Poll::with('questions')->find($id)->questions;
+        return new QuestionCollection($questions);
     }
 }

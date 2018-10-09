@@ -12,11 +12,4 @@ class Poll extends Model
     public function questions(){
         return $this->hasMany(Question::class);
     }
-
-    // public function toArray(){
-    //     return [
-    //         'title' => $this->title,
-    //         'questions' => $this->questions
-    //     ];
-    // }
 }
