@@ -11,9 +11,10 @@ use App\Http\Resources\QuestionCollection;
 class PollController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/api/polls",
+     *     @OA\Response(response="200", description="List of polls from database")
+     * )
      */
     public function index()
     {
@@ -24,10 +25,20 @@ class PollController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/api/polls/{id}",
+     * @OA\Parameter(
+     *          name="id",
+     *          description="Poll id",
+     *          required=true,
+     *          in="path",
+     *          example=1,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *     @OA\Response(response="200", description="Find poll by id")
+     * )
      */
     public function store(Request $request)
     {
@@ -86,7 +97,7 @@ class PollController extends Controller
         return response()->json(null, 204);
     }
 
-    public function listOfQuestions($id){
+    public function listOfQuestions(Poll $poll){
         $questions = Poll::with('questions')->find($id)->questions;
         return new QuestionCollection($questions);
     }
