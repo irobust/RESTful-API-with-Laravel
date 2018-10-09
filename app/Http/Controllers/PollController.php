@@ -13,7 +13,13 @@ class PollController extends Controller
     /**
      * @OA\Get(
      *     path="/api/polls",
-     *     @OA\Response(response="200", description="List of polls from database")
+     *     @OA\Response(
+     *          response="200", description="List of polls from database",
+     *          @OA\JsonContent(
+     *                  type="array",
+     *                  @OA\Items(ref="#/components/schemas/Poll")
+     *          )
+     *     )
      * )
      */
     public function index()
@@ -37,7 +43,10 @@ class PollController extends Controller
      *              type="integer"
      *          )
      *      ),
-     *     @OA\Response(response="200", description="Find poll by id")
+     *     @OA\Response(
+     *          response="200", description="Find poll by id",
+     *          @OA\JsonContent(ref="#/components/schemas/Poll")
+     *     )
      * )
      */
     public function store(Request $request)

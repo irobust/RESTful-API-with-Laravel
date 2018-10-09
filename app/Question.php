@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     /**
-     * @OA\Property(property="title", type="string", description="poll title")
+     * @OA\Property(property="title", type="string", description="question title")
      * @OA\Property(property="question", type="string")
      */
     protected $fillable = ['title', 'question'];
