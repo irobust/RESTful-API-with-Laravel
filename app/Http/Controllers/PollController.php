@@ -30,7 +30,7 @@ class PollController extends Controller
      */
     public function index()
     {
-        $polls = Poll::with('questions')->getx();
+        $polls = Poll::with('questions')->get();
         $response['polls'] = $polls;
         $response['questions'] = $polls->pluck('questions');
         return response()->json($response, 200);
