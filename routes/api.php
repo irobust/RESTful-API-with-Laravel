@@ -19,3 +19,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResource('/polls', 'PollController');
 Route::get('polls/{id}/questions', 'PollController@listOfQuestions');
+
+Route::post('register', 'AuthController@register');
+Route::post('login', 'AuthController@login');
+Route::post('logout', 'AuthController@logout');
+
+Route::middleware('jwt.auth')->get('me', function(Request $request){
+    return auth()->user();
+});

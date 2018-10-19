@@ -10,6 +10,12 @@ use App\Http\Resources\QuestionCollection;
 
 class PollController extends Controller
 {
+    public function __construct(){
+        $this->middleware('jwt.auth', [
+            'only' => ['store', 'update', 'destroy']
+        ]);
+    }
+
     /**
      * @OA\Get(
      *     path="/api/polls",
@@ -24,7 +30,7 @@ class PollController extends Controller
      */
     public function index()
     {
-        $polls = Poll::with('questions')->get();
+        $polls = Poll::with('questions')->getx();
         $response['polls'] = $polls;
         $response['questions'] = $polls->pluck('questions');
         return response()->json($response, 200);

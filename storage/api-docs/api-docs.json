@@ -1,0 +1,96 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My First API",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/polls": {
+            "get": {
+                "operationId": "App\\Http\\Controllers\\PollController::index",
+                "responses": {
+                    "200": {
+                        "description": "List of polls from database",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Poll"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/polls/{id}": {
+            "get": {
+                "operationId": "App\\Http\\Controllers\\PollController::store",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Poll id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Find poll by id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Poll"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Poll": {
+                "required": [
+                    "title"
+                ],
+                "properties": {
+                    "title": {
+                        "description": "poll title",
+                        "type": "string"
+                    },
+                    "questions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Question"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Question": {
+                "required": [
+                    "title",
+                    "question"
+                ],
+                "properties": {
+                    "title": {
+                        "description": "question title",
+                        "type": "string"
+                    },
+                    "question": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
